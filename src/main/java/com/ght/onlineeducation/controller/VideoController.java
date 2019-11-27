@@ -15,7 +15,8 @@ public class VideoController {
     private VideoService videoService;
 
     @GetMapping("/find/all")
-    public List<Video> findAll(){
+    public List<Video> pageVideo(@RequestParam(value = "page",defaultValue = "1")int page,
+                                 @RequestParam(value = "size",defaultValue = "10")int size){
         return videoService.findAll();
     }
 
@@ -24,21 +25,4 @@ public class VideoController {
         return videoService.findById(videoId);
     }
 
-    @PutMapping("/update")
-    public int update(Video video){
-        return videoService.update(video);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public int delete(@PathVariable(name = "id") int videoId){
-        return videoService.delete(videoId);
-    }
-
-    @PostMapping("/save")
-    public int save(Video video){
-        videoService.save(video);
-        int rowIndex = video.getId();
-        System.out.println("key---"+rowIndex);
-        return rowIndex;
-    }
 }
