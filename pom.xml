@@ -40,6 +40,17 @@
             <artifactId>mysql-connector-java</artifactId>
             <scope>5.1.47</scope>
         </dependency>
+
+
+        <!-- 分页插件依赖 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+
+
+
         <!-- https://mvnrepository.com/artifact/com.alibaba/druid -->
         <dependency>
             <groupId>com.alibaba</groupId>
