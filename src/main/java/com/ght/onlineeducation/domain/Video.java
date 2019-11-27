@@ -16,6 +16,6 @@ public class Video {
   @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",locale = "zh",timezone = "GMT+8")
   private java.util.Date createTime;
   private Integer online;
-  private double point;
+  private Double point;
 
 }

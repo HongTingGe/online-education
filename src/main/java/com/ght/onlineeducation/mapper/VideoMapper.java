@@ -1,6 +1,7 @@
 package com.ght.onlineeducation.mapper;
 
 import com.ght.onlineeducation.domain.Video;
+import com.ght.onlineeducation.provider.VideoProvider;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -16,7 +17,7 @@ public interface VideoMapper {
     @Select("SELECT * FROM video WHERE id = #{id}")
     public Video findById(int id);
 
-    @Update("UPDATE video SET title=#{title} WHERE id =#{id}")
+    @UpdateProvider(type = VideoProvider.class,method = "updateVideo")
     public int update(Video Video);
 
     @Delete("DELETE FROM video WHERE id =#{id}")
