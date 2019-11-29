@@ -10,7 +10,7 @@ import java.util.Date;
 public class JwtUtils {
 
     private static final String SUBJECT = "online-education";
-    private static final long EXPIRE = 1000*60; //过期时间，毫秒为单位
+    private static final long EXPIRE = 1000*60*60; //过期时间，毫秒为单位
     private static final String APPSECRET = "ght9712";//秘钥
 
     public static String geneJsonWebToken(User user){

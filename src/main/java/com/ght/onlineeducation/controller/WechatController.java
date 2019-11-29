@@ -2,7 +2,9 @@ package com.ght.onlineeducation.controller;
 
 import com.ght.onlineeducation.config.WeChatConfig;
 import com.ght.onlineeducation.domain.JsonData;
+import com.ght.onlineeducation.domain.User;
 import com.ght.onlineeducation.service.UserService;
+import com.ght.onlineeducation.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -36,9 +39,14 @@ public class WechatController {
     }
 
     @RequestMapping("/user/callback")
-    public void wechatUserCallback (@RequestParam(value = "code",required = true) String code, String state, HttpServletResponse response) {
+    public void wechatUserCallback (@RequestParam(value = "code",required = true) String code, String state, HttpServletResponse response) throws IOException {
 
-        userService.saveWeChatUser(code);
+        User user = userService.saveWeChatUser(code);
+
+        if (user!=null){
+            String token = JwtUtils.geneJsonWebToken(user);
+            response.sendRedirect(state+"?token="+token+"&head_img="+user.getHeadImg()+"&name="+URLEncoder.encode(user.getName(),"UTF-8"));
+        }
 
     }
 

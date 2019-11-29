@@ -19,7 +19,7 @@ public class Test {
     @org.junit.Test
     public void test2(){
 
-        Claims claims = JwtUtils.checkJWT("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbmxpbmUtZWR1Y2F0aW9uIiwiaWQiOjEsIm5hbWUiOiJ0aW5nIiwiaW1nIjoid3d3LmdodC5jb20iLCJpYXQiOjE1NzQ5MDk2NjMsImV4cCI6MTU3NDkwOTcyM30.D6jNU9j87P8wkaADb4huMF9ECeDK0ZKCsDY9d9ELqOk");
+        Claims claims = JwtUtils.checkJWT("eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJvbmxpbmUtZWR1Y2F0aW9uIiwiaWQiOjEsIm5hbWUiOiLlvIDlp4vmh4LkuoYiLCJpbWciOiJodHRwOi8vdGhpcmR3eC5xbG9nby5jbi9tbW9wZW4vdmlfMzIvUTBqNFR3R1RmVElVTEJOeE5HM1VDSmV5Ym1pYWJpY1c4blpUMmZ1T3A2R1hYQjJkR0w0aHNybzdLRGF4RVFqamtrNlludk92SDNZOUxGbDNLbWt5cWpRdy8xMzIiLCJpYXQiOjE1NzUwMTIyNjAsImV4cCI6MTU3NTAxMjMyMH0._JPsaG4LT43SqMlMjgsC7tAMLXf-xexjkr8pmVYqnho");
         System.out.println("id----"+claims.get("id"));
         System.out.println("name---"+claims.get("name"));
         System.out.println("img---"+claims.get("img"));
