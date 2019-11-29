@@ -2,6 +2,7 @@ package com.ght.onlineeducation.controller;
 
 import com.ght.onlineeducation.config.WeChatConfig;
 import com.ght.onlineeducation.domain.JsonData;
+import com.ght.onlineeducation.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,9 @@ public class WechatController {
     @Autowired
     private WeChatConfig weChatConfig;
 
+    @Autowired
+    private UserService userService;
+
 
     @RequestMapping("/login")
     @ResponseBody
@@ -34,8 +38,7 @@ public class WechatController {
     @RequestMapping("/user/callback")
     public void wechatUserCallback (@RequestParam(value = "code",required = true) String code, String state, HttpServletResponse response) {
 
-        System.out.println("code---"+code);
-        System.out.println("state---"+state);
+        userService.saveWeChatUser(code);
 
     }
 
