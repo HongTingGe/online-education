@@ -14,6 +14,8 @@ import com.ght.onlineeducation.utils.HttpUtils;
 import com.ght.onlineeducation.utils.WXPayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.Map;
@@ -37,6 +39,7 @@ public class VideoOrderServiceImpl implements VideoOrderService {
     private UserMapper userMapper;
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public String save(VideoOrderDto videoOrderDto) throws Exception {
         //查找视频信息
         Video video =  videoMapper.findById(videoOrderDto.getVideoId());
@@ -92,10 +95,15 @@ public class VideoOrderServiceImpl implements VideoOrderService {
         String sign = WXPayUtil.createSign(params, weChatConfig.getKey());
         params.put("sign",sign);
 
+        System.out.println("----------发送过去的sign---------");
+        System.out.println(sign);
+        System.out.println("-------------------------------");
+
         //map转xml
         String payXml = WXPayUtil.mapToXml(params);
 
-        System.out.println(payXml);
+
+        //System.out.println(payXml);
         //统一下单
         String orderStr = HttpUtils.doPost(WeChatConfig.getUnifiedOrderUrl(),payXml,4000);
         if(null == orderStr) {

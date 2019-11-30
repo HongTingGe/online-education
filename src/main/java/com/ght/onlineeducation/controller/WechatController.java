@@ -5,16 +5,18 @@ import com.ght.onlineeducation.domain.JsonData;
 import com.ght.onlineeducation.domain.User;
 import com.ght.onlineeducation.service.UserService;
 import com.ght.onlineeducation.utils.JwtUtils;
+import com.ght.onlineeducation.utils.WXPayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URLEncoder;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/wechat")
@@ -48,6 +50,24 @@ public class WechatController {
             response.sendRedirect(state+"?token="+token+"&head_img="+user.getHeadImg()+"&name="+URLEncoder.encode(user.getName(),"UTF-8"));
         }
 
+    }
+
+    @RequestMapping("/order/callback")
+    public void wechatOrderCallback (HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+        InputStream inputStream = request.getInputStream();
+        BufferedReader br = new BufferedReader(new InputStreamReader(inputStream,"UTF-8"));
+        StringBuffer sb = new StringBuffer();
+        String line;
+        while ((line = br.readLine())!= null){
+            sb.append(line);
+        }
+        br.close();
+        inputStream.close();
+        Map<String,String> callbackMap = WXPayUtil.xmlToMap(sb.toString());
+        System.out.println("-----------微信返回sign----------");
+        System.out.println(callbackMap.get("sign"));
+        System.out.println("--------------------------------");
     }
 
 }
